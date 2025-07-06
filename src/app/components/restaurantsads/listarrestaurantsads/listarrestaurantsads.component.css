@@ -1,0 +1,14 @@
+table {
+    width: 70%;
+  }
+  
+  .example-full-width {
+    width: 80%; /* Ajusta el ancho deseado (por ejemplo, 80% o 500px) */
+    max-width: 100%; /* Evita que se exceda del contenedor en pantallas pequeñas */
+  }
+  
+  .mat-form-field {
+    width: 100%; /* Asegura que ocupe todo el ancho disponible del elemento contenedor */
+    margin-bottom: 16px; /* Añade un margen inferior para separar de otros elementos */
+  }
+  

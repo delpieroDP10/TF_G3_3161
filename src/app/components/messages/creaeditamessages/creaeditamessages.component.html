@@ -1,0 +1,84 @@
+<div class="container" style="text-align: center; margin: 5%;">
+  <h1>{{ isEditMode ? 'Editar Mensaje' : 'Registrar Mensaje' }}</h1>
+  <form [formGroup]="messageForm" (ngSubmit)="saveMessage()">
+
+    <!-- Campo Message ID (solo visible en edición) -->
+    <mat-form-field class="example-full-width" *ngIf="isEditMode">
+      <mat-label>ID del Mensaje</mat-label>
+      <input matInput formControlName="messageId" readonly>
+    </mat-form-field>
+    <br />
+
+    <!-- Campo Message Text -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Texto del Mensaje</mat-label>
+      <textarea matInput formControlName="messageText" required rows="3"></textarea>
+      <mat-error *ngIf="messageForm.get('messageText')?.hasError('required')">
+        El texto del mensaje es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Campo Sent At -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Fecha de Envío</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="sentAt" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="messageForm.get('sentAt')?.hasError('required')">
+        La fecha de envío es obligatoria.
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Selector Sender -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Remitente</mat-label>
+      <mat-select formControlName="senderId" required>
+        <mat-option *ngFor="let user of users" [value]="user.userId">
+          {{ user.username }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="messageForm.get('senderId')?.hasError('required')">
+        El remitente es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Selector Receiver -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Receptor</mat-label>
+      <mat-select formControlName="receiverId" required>
+        <mat-option *ngFor="let user of users" [value]="user.userId">
+          {{ user.username }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="messageForm.get('receiverId')?.hasError('required')">
+        El receptor es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Selector Restaurant Ads -->
+    <mat-form-field class="example-full-width">
+      <mat-label>Anuncio de Restaurante</mat-label>
+      <mat-select formControlName="restaurantAdsId" required>
+        <mat-option *ngFor="let ad of restaurantAds" [value]="ad.adId">
+          {{ ad.description }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="messageForm.get('restaurantAdsId')?.hasError('required')">
+        El anuncio de restaurante es obligatorio.
+      </mat-error>
+    </mat-form-field>
+    <br />
+
+    <!-- Botones de acción -->
+    <div style="margin-top: 20px;">
+      <button mat-flat-button color="primary" type="submit">
+        {{ isEditMode ? 'Guardar Cambios' : 'Registrar' }}
+      </button>
+      <button mat-button (click)="cancel()">Cancelar</button>
+    </div>
+  </form>
+</div>

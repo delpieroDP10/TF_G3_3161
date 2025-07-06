@@ -1,0 +1,66 @@
+<div style="text-align: center; margin: 5%;">
+    <h1>Lista de Anuncios de Restaurantes</h1>
+    <p>Cantidad de registros: {{ restaurantAdsDataSource.data.length }}</p>
+    <mat-form-field class="example-full-width">
+      <mat-label>Filtrar por Descripción o Presupuesto</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+    </mat-form-field>
+</div>
+
+<div class="container">
+  <table mat-table [dataSource]="restaurantAdsDataSource" matSort class="mat-elevation-z8">
+
+    <!-- Ad ID Column -->
+    <ng-container matColumnDef="adId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.adId }} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Descripción </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.description }} </td>
+    </ng-container>
+
+    <!-- Budget Column -->
+    <ng-container matColumnDef="budget">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Presupuesto </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.budget | currency }} </td>
+    </ng-container>
+
+    <!-- Event Date Column -->
+    <ng-container matColumnDef="eventDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha del Evento </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.eventDate | date }} </td>
+    </ng-container>
+
+    <!-- Restaurant ID Column -->
+    <ng-container matColumnDef="restaurantId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID del Restaurante </th>
+      <td mat-cell *matCellDef="let ad"> {{ ad.restaurantId }} </td>
+    </ng-container>
+
+    <!-- Delete Action Column -->
+    <ng-container matColumnDef="actionDelete">
+      <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+      <td mat-cell *matCellDef="let ad">
+        <mat-icon style="color: red" (click)="deleteRestaurantAd(ad.adId)">delete</mat-icon>
+      </td>
+    </ng-container>
+
+    <!-- Update Action Column -->
+    <ng-container matColumnDef="actionUpdate">
+      <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+      <td mat-cell *matCellDef="let ad">
+        <button mat-raised-button color="primary" [routerLink]="['/restaurant_ads/edit', ad.adId]">
+          <mat-icon>edit</mat-icon> Editar
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="restaurantAdsDisplayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: restaurantAdsDisplayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
