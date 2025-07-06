@@ -1,0 +1,57 @@
+<div style="text-align: center; margin: 5%;">
+    <h1>{{ isEditMode ? 'Editar Anuncio de Restaurante' : 'Registrar Anuncio de Restaurante' }}</h1>
+    <form [formGroup]="restaurantAdForm" (submit)="saveRestaurantAd()">
+      
+      <!-- Campo Ad ID (solo visible en edición) -->
+      <mat-form-field class="example-full-width" *ngIf="isEditMode">
+        <mat-label>ID de Anuncio</mat-label>
+        <input matInput formControlName="adId" readonly />
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Descripción -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="description" required />
+        <mat-error *ngIf="restaurantAdForm.get('description')?.hasError('required')">La descripción es obligatoria.</mat-error>
+      </mat-form-field>
+      <br />
+    
+      <!-- Campo Presupuesto -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Presupuesto</mat-label>
+        <input matInput type="number" formControlName="budget" required />
+        <mat-error *ngIf="restaurantAdForm.get('budget')?.hasError('required')">El presupuesto es obligatorio.</mat-error>
+      </mat-form-field>
+      <br />
+    
+      <!-- Campo Fecha del Evento -->
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha del Evento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="eventDate" placeholder="Seleccione la fecha del evento">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>    
+      <br />
+    
+      <!-- Campo Restaurante -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Restaurante</mat-label>
+        <mat-select formControlName="restaurantId" required>
+          <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant.restaurantId">
+            {{ restaurant.restaurantName }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="restaurantAdForm.get('restaurantId')?.hasError('required')">El restaurante es obligatorio.</mat-error>
+      </mat-form-field>
+      <br />
+    
+      <div style="margin-top: 20px;">
+        <button mat-flat-button color="primary" type="submit">
+          {{ isEditMode ? 'Guardar Cambios' : 'Registrar' }}
+        </button>
+        <button mat-button (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
