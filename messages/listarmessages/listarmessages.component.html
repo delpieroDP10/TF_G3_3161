@@ -1,0 +1,75 @@
+<div>
+    <div style="text-align: center; margin: 5%;">
+      <h1>Lista de Mensajes</h1>
+      <p>Cantidad de registros: {{ messageDataSource.data.length }}</p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Filtrar por Texto del Mensaje o Fecha</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+      </mat-form-field>
+    </div>
+  
+    <div class="container">
+      <table mat-table [dataSource]="messageDataSource" matSort class="mat-elevation-z8">
+  
+        <!-- Message ID Column -->
+        <ng-container matColumnDef="messageId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let message"> {{ message.messageId }} </td>
+        </ng-container>
+  
+        <!-- Message Text Column -->
+        <ng-container matColumnDef="messageText">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Texto </th>
+          <td mat-cell *matCellDef="let message"> {{ message.messageText }} </td>
+        </ng-container>
+  
+        <!-- Sent At Column -->
+        <ng-container matColumnDef="sentAt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Envío </th>
+          <td mat-cell *matCellDef="let message"> {{ message.sentAt | date }} </td>
+        </ng-container>
+  
+        <!-- Sender Column -->
+        <ng-container matColumnDef="senderId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Remitente ID </th>
+          <td mat-cell *matCellDef="let message"> {{ message.senderId }} </td>
+        </ng-container>
+  
+        <!-- Receiver Column -->
+        <ng-container matColumnDef="receiverId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Receptor ID </th>
+          <td mat-cell *matCellDef="let message"> {{ message.receiverId }} </td>
+        </ng-container>
+  
+        <!-- Restaurant Ads Column -->
+        <ng-container matColumnDef="restaurantAdsId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Anuncio ID </th>
+          <td mat-cell *matCellDef="let message"> {{ message.restaurantAdsId }} </td>
+        </ng-container>
+  
+        <!-- Delete Action Column -->
+        <ng-container matColumnDef="actionDelete">
+          <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+          <td mat-cell *matCellDef="let message" (click)="deleteMessage(message.messageId)">
+            <mat-icon style="color: red">delete</mat-icon>
+          </td>
+        </ng-container>
+  
+        <!-- Update Action Column -->
+        <ng-container matColumnDef="actionUpdate">
+          <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+          <td mat-cell *matCellDef="let message">
+            <button mat-raised-button color="primary" [routerLink]="['/messages/edit', message.messageId]">
+              <mat-icon>edit</mat-icon> Editar
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="messageDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: messageDisplayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  

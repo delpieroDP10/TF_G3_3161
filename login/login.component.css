@@ -1,0 +1,132 @@
+/* Fondo general */
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #87CEFA, #003366);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Tarjeta del login */
+.login-card {
+  width: 440px; /* Aumentado para más espacio */
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.login-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.4);
+}
+
+/* Contenedor del logo */
+.logo-container {
+  width: 180px; /* Incrementado */
+  height: 180px;
+  background-image: url('../../assets/logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+}
+
+/* Títulos */
+mat-card-title {
+  font-size: 1.8rem;
+  color: #003366;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+mat-card-subtitle {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Campos del formulario */
+.styled-form-field {
+  margin-bottom: 20px;
+  width: 100%; /* Mantiene ancho completo */
+}
+
+.styled-form-field .mat-form-field-flex {
+  background: #f9f9f9;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 12px 16px; /* Más espacioso */
+}
+
+.styled-form-field.mat-focused .mat-form-field-outline {
+  border-color: #003366;
+}
+
+.styled-form-field.mat-focused .mat-form-field-label {
+  color: #003366;
+}
+
+mat-icon {
+  color: #003366;
+}
+
+/* Botón de inicio de sesión */
+.submit-button {
+  width: 100%;
+  height: 55px; /* Más alto */
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #003366, #4A90E2);
+  color: white; /* Texto claramente visible */
+  transition: background 0.3s, transform 0.3s;
+}
+
+.submit-button:hover {
+  background: linear-gradient(90deg, #4A90E2, #003366);
+  transform: translateY(-2px);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+/* Mensaje de error */
+.error {
+  color: #FF0000;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%;
+    padding: 1.5rem;
+  }
+
+  .logo-container {
+    width: 140px; /* Más pequeño en pantallas pequeñas */
+    height: 140px;
+  }
+
+  mat-card-title {
+    font-size: 1.6rem;
+  }
+
+  mat-card-subtitle {
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    height: 45px;
+    font-size: 1rem;
+  }
+}

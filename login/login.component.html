@@ -1,0 +1,54 @@
+<div class="login-wrapper">
+  <mat-card class="login-card mat-elevation-z8">
+    <!-- Logo -->
+    <div class="logo-container"></div>
+
+    <!-- Títulos -->
+    <mat-card-title>Bienvenido de nuevo</mat-card-title>
+    <mat-card-subtitle>Por favor, inicia sesión para continuar</mat-card-subtitle>
+
+    <!-- Formulario -->
+    <mat-card-content>
+      <form (ngSubmit)="onLogin()" class="login-form">
+
+        <!-- Campo de Usuario -->
+        <mat-form-field appearance="outline" class="styled-form-field">
+          <mat-label>Usuario</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="username"
+            name="username"
+            required
+          />
+          <mat-icon matSuffix>person</mat-icon>
+          <mat-error *ngIf="!username">El usuario es obligatorio.</mat-error>
+        </mat-form-field>
+
+        <!-- Campo de Contraseña -->
+        <mat-form-field appearance="outline" class="styled-form-field">
+          <mat-label>Contraseña</mat-label>
+          <input
+            matInput
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            required
+          />
+          <mat-icon matSuffix>lock</mat-icon>
+          <mat-error *ngIf="!password">La contraseña es obligatoria.</mat-error>
+        </mat-form-field>
+
+        <!-- Mensaje de Error -->
+        <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      </form>
+    </mat-card-content>
+
+    <!-- Botón de Ingresar -->
+    <mat-card-actions>
+      <button mat-raised-button class="submit-button" (click)="onLogin()">
+        Ingresar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

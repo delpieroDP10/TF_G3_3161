@@ -1,0 +1,71 @@
+<div class="container" style="text-align: center; margin: 5%;">
+    <h1>{{ isEditMode ? 'Editar Aplicación de Artista' : 'Registrar Aplicación de Artista' }}</h1>
+    <form [formGroup]="artistApplicationForm" (ngSubmit)="saveArtistApplication()">
+  
+      <!-- Campo Application ID (solo visible en edición) -->
+      <mat-form-field class="example-full-width" *ngIf="isEditMode">
+        <mat-label>ID de Aplicación</mat-label>
+        <input matInput formControlName="applicationId" readonly>
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Status -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="status" required />
+        <mat-error *ngIf="artistApplicationForm.get('status')?.hasError('required')">
+          El estado es obligatorio.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Applied At -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Fecha de Aplicación</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="appliedAt" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="artistApplicationForm.get('appliedAt')?.hasError('required')">
+          La fecha de aplicación es obligatoria.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Selector de Anuncio de Restaurante -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Anuncio de Restaurante</mat-label>
+        <mat-select formControlName="restaurantAdsId" required>
+          <mat-option *ngFor="let ad of restaurantAds" [value]="ad.adId">
+            {{ ad.description }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="artistApplicationForm.get('restaurantAdsId')?.hasError('required')">
+          El anuncio de restaurante es obligatorio.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Selector de Perfil de Artista -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Perfil de Artista</mat-label>
+        <mat-select formControlName="artistProfileId" required>
+          <mat-option *ngFor="let profile of artistProfiles" [value]="profile.artistId">
+            {{ profile.bio }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="artistApplicationForm.get('artistProfileId')?.hasError('required')">
+          El perfil de artista es obligatorio.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Botones de acción -->
+      <div style="margin-top: 20px;">
+        <button mat-flat-button color="primary" type="submit">
+          {{ isEditMode ? 'Guardar Cambios' : 'Registrar' }}
+        </button>
+        <button mat-button (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
