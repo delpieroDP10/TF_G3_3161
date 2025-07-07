@@ -1,0 +1,69 @@
+<div>
+    <div style="text-align: center; margin: 5%;">
+      <h1>Lista de Perfiles de Artistas</h1>
+      <p>Cantidad de registros: {{ artistProfileDataSource.data.length }}</p>
+      <mat-form-field class="example-full-width">
+        <mat-label>Filtrar por Biografía o Experiencia</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+      </mat-form-field>
+    </div>
+  
+    <div class="container">
+      <table mat-table [dataSource]="artistProfileDataSource" matSort class="mat-elevation-z8">
+  
+        <!-- Artist ID Column -->
+        <ng-container matColumnDef="artistId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let profile"> {{ profile.artistId }} </td>
+        </ng-container>
+  
+        <!-- Bio Column -->
+        <ng-container matColumnDef="bio">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Biografía </th>
+          <td mat-cell *matCellDef="let profile"> {{ profile.bio }} </td>
+        </ng-container>
+  
+        <!-- Experience Column -->
+        <ng-container matColumnDef="experience">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Experiencia </th>
+          <td mat-cell *matCellDef="let profile"> {{ profile.experience }} </td>
+        </ng-container>
+  
+        <!-- Portfolio URL Column -->
+        <ng-container matColumnDef="portfolioUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Portafolio </th>
+          <td mat-cell *matCellDef="let profile"> {{ profile.portfolioUrl }} </td>
+        </ng-container>
+  
+        <!-- User ID Column -->
+        <ng-container matColumnDef="userId">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Usuario ID </th>
+          <td mat-cell *matCellDef="let profile"> {{ profile.userId }} </td>
+        </ng-container>
+  
+        <!-- Delete Action Column -->
+        <ng-container matColumnDef="actionDelete">
+          <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+          <td mat-cell *matCellDef="let profile" (click)="deleteArtistProfile(profile.artistId)">
+            <mat-icon style="color: red">delete</mat-icon>
+          </td>
+        </ng-container>
+  
+        <!-- Update Action Column -->
+        <ng-container matColumnDef="actionUpdate">
+          <th mat-header-cell *matHeaderCellDef> Actualizar </th>
+          <td mat-cell *matCellDef="let profile">
+            <button mat-raised-button color="primary" [routerLink]="['/artist-profiles/edit', profile.artistId]">
+              <mat-icon>edit</mat-icon> Editar
+            </button>
+          </td>
+        </ng-container>
+  
+        <tr mat-header-row *matHeaderRowDef="artistProfileDisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: artistProfileDisplayedColumns;"></tr>
+      </table>
+  
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+  

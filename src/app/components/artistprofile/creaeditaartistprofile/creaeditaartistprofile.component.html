@@ -1,0 +1,62 @@
+<div class="container" style="text-align: center; margin: 5%;">
+    <h1>{{ isEditMode ? 'Editar Perfil de Artista' : 'Registrar Perfil de Artista' }}</h1>
+    <form [formGroup]="artistProfileForm" (ngSubmit)="saveArtistProfile()">
+  
+      <!-- Campo Artist ID (solo visible en edición) -->
+      <mat-form-field class="example-full-width" *ngIf="isEditMode">
+        <mat-label>ID de Artista</mat-label>
+        <input matInput formControlName="artistId" readonly>
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Bio -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Biografía</mat-label>
+        <textarea matInput formControlName="bio" required rows="3"></textarea>
+        <mat-error *ngIf="artistProfileForm.get('bio')?.hasError('required')">
+          La biografía es obligatoria.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Experience -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Experiencia</mat-label>
+        <input matInput formControlName="experience" required />
+        <mat-error *ngIf="artistProfileForm.get('experience')?.hasError('required')">
+          La experiencia es obligatoria.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Campo Portfolio URL -->
+      <mat-form-field class="example-full-width">
+        <mat-label>URL del Portafolio</mat-label>
+        <input matInput formControlName="portfolioUrl" />
+      </mat-form-field>
+      <br />
+  
+      <!-- Selector de Usuario -->
+      <mat-form-field class="example-full-width">
+        <mat-label>Usuario</mat-label>
+        <mat-select formControlName="userId" required>
+          <mat-option *ngFor="let user of users" [value]="user.userId">
+            {{ user.username }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="artistProfileForm.get('userId')?.hasError('required')">
+          El usuario es obligatorio.
+        </mat-error>
+      </mat-form-field>
+      <br />
+  
+      <!-- Botones de acción -->
+      <div style="margin-top: 20px;">
+        <button mat-flat-button color="primary" type="submit">
+          {{ isEditMode ? 'Guardar Cambios' : 'Registrar' }}
+        </button>
+        <button mat-button (click)="cancel()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
